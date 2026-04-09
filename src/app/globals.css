@@ -5,6 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-border-color:lab(91.6229% -.159115 -2.26791);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -117,6 +118,32 @@
 }
 
 @layer base {
+  h1 {
+    font-size: 32px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  h3 {
+    font-size: 18.72px;
+  }
+  h4 {
+    font-size: 16px;
+  }
+  h5 {
+    font-size: 13.28px;
+  }
+  h6 {
+    font-size: 10.72px;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+  }
   * {
     @apply border-border outline-ring/50;
   }
