@@ -1,15 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useState, Suspense } from "react" // أضفنا Suspense
 import { useSearchParams } from "next/navigation"
 import { useQuery } from "@tanstack/react-query"
 import { FaSearch, FaThLarge, FaList, FaStar } from "react-icons/fa"
 import { RiRefreshLine } from "react-icons/ri"
 import { AiOutlineHeart, AiOutlineEye } from "react-icons/ai"
 import Image from "next/image"
-import ButtonCom from "../_components/ButtonCom" 
+import ButtonCom from "../_components/ButtonCom"
 
-export default function SearchPage() {
+// 1. المكون الفعلي الذي يحتوي على كل المنطق
+function SearchContent() {
   const searchParams = useSearchParams()
   const [searchTerm, setSearchTerm] = useState(searchParams.get("query") || "")
   const [selectedCats, setSelectedCats] = useState<string[]>([])
@@ -184,5 +185,12 @@ export default function SearchPage() {
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #adb5bd; border-radius: 10px; }
       `}</style>
     </div>
+  )
+}
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="mt-32 text-center text-green-600 font-bold">Loading Search...</div>}>
+      <SearchContent />
+    </Suspense>
   )
 }
