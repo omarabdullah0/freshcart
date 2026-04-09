@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Loader2, Package, Heart, Eye, RefreshCw, Plus } from 'lucide-react'
 import ButtonCom from '../_components/ButtonCom'
+export const dynamic = "force-dynamic";
 
 export default function ShopPage() {
   const { data, isLoading } = useQuery({
