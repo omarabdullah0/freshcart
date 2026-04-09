@@ -1,25 +1,35 @@
 'use client'
+
 import { onlinePayemnt } from '@/api/payment/checkout.api';
 import { Button } from '@/components/ui/button'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-export default function CheckOut({cartId}:{cartId:string}) {
+interface FormData {
+  city: string;
+  details: string;
+  phone: string;
+}
 
-  interface formData {
-    city: string;
-    details: string;
-    phone: number;
-  }
+interface ApiResponse {
+  status: string;
+  session?: {
+    url: string;
+  };
+}
 
-  const { register, handleSubmit } = useForm<formData>()
+export default function CheckOut({ cartId }: { cartId: string }) {
 
-  async function handleCheckOut(data: any) {
-    const res = await onlinePayemnt(cartId, data)
+  const { register, handleSubmit } = useForm<FormData>()
+
+  async function handleCheckOut(data: FormData) {
+    const res: ApiResponse = await onlinePayemnt(cartId, data)
+
     console.log(res)
 
-    if(res.status === 'success')
-      window.location.href=res.session.url
+    if (res?.status === "success" && res.session?.url) {
+      window.location.href = res.session.url
+    }
   }
 
   return (
@@ -33,19 +43,20 @@ export default function CheckOut({cartId}:{cartId:string}) {
           className="w-full my-2 border border-gray-500 p-3 rounded-2xl" 
           placeholder='details'
         />
+
         <input 
           {...register('phone')} 
           className="w-full my-2 border border-gray-500 p-3 rounded-2xl" 
           placeholder='phone' 
           type='tel'
         />
+
         <input 
           {...register('city')} 
           className="w-full my-2 border border-gray-500 p-3 rounded-2xl" 
           placeholder='city' 
         />
-      
-        
+
         <Button className="w-full mt-4">Send</Button>
       </form>
     </div>
