@@ -23,7 +23,8 @@ export default function CheckOut({ cartId }: { cartId: string }) {
   const { register, handleSubmit } = useForm<FormData>()
 
   async function handleCheckOut(data: FormData) {
-    const res: ApiResponse = await onlinePayemnt(cartId, data)
+    // ✅ أهم تعديل هنا: تأكيد type
+    const res = await onlinePayemnt(cartId, data) as ApiResponse
 
     console.log(res)
 
